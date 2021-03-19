@@ -1,11 +1,10 @@
----
 apiVersion: mongodb.com/v1
 kind: MongoDBOpsManager
 metadata:
   name: ops-manager-localmode
   namespace: mongodb
 spec:
-  replicas: 2
+  replicas: 1
   version: 4.2.6  # the version of Ops Manager 
 
   # the name of the secret containing admin user credentials.
@@ -21,28 +20,6 @@ spec:
     mms.security.allowCORS: "false"
     mms.minimumTLSVersion: TLSv1.2
     mms.mail.port: "465"
-
-
-  statefulSet:
-    spec:
-      # the Persistent Volume Claim will be created for each Ops Manager Pod
-      volumeClaimTemplates:
-        - metadata:
-            name: mongodb-versions
-          spec:
-            accessModes: [ "ReadWriteOnce" ]
-            resources:
-              requests:
-                storage: 10G
-      template:
-        spec:
-          containers:
-            - name: mongodb-ops-manager
-              volumeMounts:
-                - name: mongodb-versions
-                  # this is the directory in each Pod where all MongoDB
-                  # archives must be put
-                  mountPath: /mongodb-ops-manager/mongodb-releases
 
 
   externalConnectivity:
