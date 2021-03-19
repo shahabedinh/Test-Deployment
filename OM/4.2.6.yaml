@@ -56,19 +56,3 @@ spec:
     members: 3
     version: 4.2.12-ent
     persistent: true
-    podSpec:
-      cpu: "0.25"
-
-  backup:
-    enabled: true
-    headDB:
-      storage: 30Gi
-      labelSelector:
-        matchLabels:
-          app: my-app
-    opLogStores:
-      - name: oplog1
-        mongodbResourceRef:
-          name: my-oplog-db
-        mongodbUserRef:
-          name: my-oplog-user
